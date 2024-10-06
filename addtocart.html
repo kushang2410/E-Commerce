@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assest/images/logo.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="assest/css/style.css">
+    <link rel="stylesheet" href="assest/css/media.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>E-Commerce</title>
+</head>
+
+<body>
+    <header id="header"></header>
+    <section class="mt-5 container top-margins">
+        <h1 class="mb-6 display-5 fw-bold text-center text-uppercase mb-5">Your Cart</h1>
+        <div class="row g-4 g-md-8">
+            <div class="col-12 col-lg-6 col-xl-7">
+                <div class="container">
+                    <div class="row" id="cart-items"></div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-5">
+                <div class="bg-dark p-4 p-md-5 text-white">
+                    <h3 class="fs-3 fw-bold m-0 text-center">Order Summary</h3>
+                    <div class="py-3 border-bottom border-white">
+                        <div class="d-flex justify-content-between align-items-center mb-2 flex-column flex-sm-row">
+                            <p class="m-0 fw-bolder fs-6">Subtotal</p>
+                            <p id="sub-total-1" class="cart-details fw-bold">$0</p>
+                        </div>
+                        <div
+                            class="d-flex justify-content-between align-items-center flex-column flex-sm-row mt-3 m-sm-0">
+                            <p class="m-0 fw-bolder fs-6">Shipping</p>
+                            <span class="text-white opacity-75 small">Will be set at checkout</span>
+                        </div>
+                    </div>
+                    <div class="py-3 border-bottom border-white">
+                        <div class="d-flex justify-content-between align-items-center flex-column flex-sm-row">
+                            <div>
+                                <p class="m-0 fs-5 fw-bold">Grand Total</p>
+                                <span class="text-white opacity-75 small">$45.89 sales tax</span>
+                            </div>
+                            <p id="Grand-total" class="cart-details fw-bold">$0</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-link p-0 mt-2 text-white fw-bolder text-decoration-none" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample">
+                        Have a coupon code?
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body bg-transparent p-0">
+                            <div class="input-group mb-0 mt-2">
+                                <input type="text" class="form-control border-0" placeholder="Enter coupon code">
+                                <button
+                                    class="btn btn-white text-dark px-3 btn-sm border-0 d-flex justify-content-center align-items-center"><i
+                                        class="ri-checkbox-circle-line ri-lg"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="checkout.html" class="btn bg-white w-100 text-dark text-center mt-3 p-3" role="button">
+                        <i class="bi bi-fingerprint align-bottom"></i> Proceed to checkout</a>
+                    <a href="checkout.html" class="btn bg-success-subtle text-dark w-100 text-center mt-3 p-3"
+                        role="button">
+                        <i class="bi bi-paypal align-bottom"></i> Checkout with PayPal</a>
+                </div>
+                <ul class="list-unstyled d-flex justify-content-center mt-3">
+                    <li class="mx-1 border d-flex align-items-center p-2"><i class="pi pi-paypal"></i></li>
+                    <li class="mx-1 border d-flex align-items-center p-2"><i class="pi pi-mastercard"></i></li>
+                    <li class="mx-1 border d-flex align-items-center p-2"><i class="pi pi-american-express"></i></li>
+                    <li class="mx-1 border d-flex align-items-center p-2"><i class="pi pi-visa"></i></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer id="footer"></footer>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+<script src="assest/js/header.js"></script>
+<script src="assest/js/footer.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+
+</html>
+<script>
+
+    var cart = JSON.parse(localStorage.getItem('cart'));
+
+    function updateData() {
+        if (!cart || cart.length === 0) {
+            const emptyCartImage = `
+            <div class="text-center">
+                <img src="assest/images/empty-cart.png" class="empty-cart" alt="Empty Cart">
+            </div>`;
+
+            ['cart-items-1'].forEach(id => {
+                document.getElementById(id).innerHTML = emptyCartImage;
+            });
+
+            const emptyCartMessage = `
+            <div class="text-center">
+                <p class="mt-5 fw-bold">No Products Added In Your Cart Go To The . <a href="products.html">Browse products</a></p>
+            </div>`;
+
+            ['cart-items'].forEach(id => {
+                document.getElementById(id).innerHTML = emptyCartMessage;
+            });
+
+            document.getElementById('sub-total').innerText = '0.00';
+            document.getElementById('sub-total-1').innerText = '0.00';
+            document.getElementById('Grand-total').innerText = '0.00';
+
+            return;
+        }
+
+        var tabData = "";
+        for (var i = 0; i < cart.length; i++) {
+            tabData += `
+            <div>
+                <div class="row mx-0 pb-4 mb-4 border-bottom">
+                    <div class="col-2">
+                        <picture class="d-block bg-light">
+                            <img src="${cart[i].image}" class="img-height card-img-top" alt="${cart[i].name}">
+                        </picture>
+                    </div>
+                    <div class="col-sm-12 col-sm-6 col-lg-10">
+                        <div class="ms-lg-5 mt-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="justify-content-between d-flex align-items-start mb-2">
+                                    ${cart[i].name}
+                                </h6>
+                                <p class="fw-bolder text-end m-0">${cart[i].price}</p>
+                            </div>
+                            <small class="d-block text-muted fw-bolder">Quantity:${cart[i].quantity}</small>
+                            <div class="d-flex justify-content-end align-items-center mt-2" style="width: 102%;">
+                                <button onclick="updateQuantityDe('${cart[i].name}')" class="btn btn-sm btn-secondary mx-1">-</button>
+                                <button onclick="updateQuantityIn('${cart[i].name}')" class="btn btn-sm btn-secondary mx-1">+</button>
+                                <button onclick="DeleteQuantity('${cart[i].name}')" class="btn btn-sm btn-danger mx-1">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        }
+        document.getElementById('cart-items').innerHTML = tabData;
+
+        const subTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        document.getElementById('sub-total').innerText = `${subTotal.toFixed(2)}`;
+        document.getElementById('sub-total-1').innerText = `${subTotal.toFixed(2)}`;
+
+        const GrandTotal = cart.reduce((total, item) => total + 45.89 + (item.price * item.quantity), 0);
+        document.getElementById('Grand-total').innerText = `${GrandTotal.toFixed(2)}`;
+    }
+
+    var cart = JSON.parse(localStorage.getItem('cart'));
+
+    function updateDataItems() {
+        if (cart) {
+            var tabDataItems = "";
+            for (var i = 0; i < cart.length; i++) {
+                tabDataItems += `
+                <div>
+                    <div class="row mx-0 pb-4 mb-4 border-bottom">
+                        <div class="col-5">
+                            <picture class="d-block bg-light">
+                            <img src="${cart[i].image}" class= "img-height card-img-top" alt="${cart[i].name}">
+                            </picture>
+                        </div>
+                        <div class="col-7">
+                            <div class="ms-5">
+                                <h6 class="justify-content-between d-flex align-items-start mb-2">
+                                    ${cart[i].name}
+                                    <i class="bi bi-x-lg" onclick="DeleteQuantity('${cart[i].name}')"></i>
+                                </h6>
+                                <small class="d-block text-muted fw-bolder">Quantity:${cart[i].quantity}</small>
+                            </div>
+                            <p class="fw-bolder text-end m-0">${cart[i].price}</p>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            document.getElementById('cart-items-1-mobile').innerHTML = tabDataItems;
+        } else {
+            document.getElementById('cart-items-1-mobile').innerHTML = `
+            <div class="text-center">
+                <img src="assest/images/empty-cart.png" class="empty-cart" alt="Empty Cart">
+            </div>`;
+        }
+    }
+
+    function updateQuantityIn(name) {
+        let incQty = cart.find((item) => {
+            return item.name === name;
+        })
+
+        incQty.quantity += 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateData();
+        updateDataItems();
+    }
+
+    function updateQuantityDe(name) {
+        let incQty = cart.find((item) => {
+            return item.name === name;
+        })
+
+        if (incQty.quantity == 1) {
+            alert('Invalid')
+        } else {
+            incQty.quantity -= 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateData();
+            updateDataItems();
+        }
+    }
+
+    function DeleteQuantity(name) {
+        cart = cart.filter(item => item.name !== name);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateData();
+        updateDataItems();
+        viewData();
+    }
+
+    function clearCart(name) {
+        cart = [];
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateData();
+        updateDataItems();
+        viewData();
+    }
+
+    updateData();
+    updateDataItems();
+
+</script>
