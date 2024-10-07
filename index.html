@@ -854,12 +854,28 @@
                 </div>
             </div>`;
             }
+
             document.getElementById('cart-items-1').innerHTML = tabDataItems;
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('cart-items-1').innerHTML = tabDataItems;
+            } else {
+                document.getElementById('cart-items-1').innerHTML = '';
+            }
         } else {
             document.getElementById('cart-items-1').innerHTML = `
+        <div class="text-center">
+            <img src="assest/images/empty-cart.png" class="empty-cart" alt="Empty Cart">
+        </div>`;
+
+            if (window.innerWidth <= 768) {
+                document.getElementById('cart-items-1-mobile').innerHTML = `
             <div class="text-center">
                 <img src="assest/images/empty-cart.png" class="empty-cart" alt="Empty Cart">
             </div>`;
+            } else {
+                document.getElementById('cart-items-1-mobile').innerHTML = '';
+            }
         }
 
         const subTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
